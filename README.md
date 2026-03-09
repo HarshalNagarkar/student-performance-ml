@@ -69,7 +69,7 @@ streamlit run app.py
 
 ---
 
-## 🔧 Maintenance & Retraining Schedule
+## Maintenance & Retraining Schedule
 - Model should be retrained **every month** with new student data
 - Retrain if accuracy drops below **85%**
 - New data should be added to `data/` and pipeline re-run from Step 2
