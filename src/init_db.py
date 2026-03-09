@@ -26,8 +26,9 @@ if __name__ == "__main__":
     conn = create_connection()
     create_table(conn)
 
-    df = pd.read_csv("student_data.csv")
+    df = pd.read_csv("data/student_data.csv")
     insert_data(conn, df)
 
     conn.close()
+
     print(" Data successfully stored in SQL database")
