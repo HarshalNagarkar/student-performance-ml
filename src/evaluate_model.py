@@ -1,37 +1,35 @@
-import sqlite3
-import pandas as pd
 import joblib
-from sklearn.metrics import accuracy_score, confusion_matrix
-from sklearn.preprocessing import LabelEncoder
+import os
+import sys
+from sklearn.metrics import (
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    confusion_matrix
+)
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from preprocess import preprocess_pipeline
 
-DB_NAME = "student_performance.db"
-MODEL_PATH = "models/saved_models/logistic_regression_v1.pkl"
+MODEL_DIR = "models/saved_models"
 
-def load_data():
-    conn = sqlite3.connect(DB_NAME)
-    df = pd.read_sql("SELECT * FROM students", conn)
-    conn.close()
-    return df
+def evaluate_model(model_name):
+    model_path = f"{MODEL_DIR}/{model_name}_v1.pkl"
+    saved = joblib.load(model_path)
+    model = saved["model"]
+
+    _, X_test, _, y_test, _, _ = preprocess_pipeline()
+
+    preds = model.predict(X_test)
+
+    print(f"\nEvaluation: {model_name}")
+    print("-" * 30)
+    print(f"Accuracy  : {accuracy_score(y_test, preds):.2f}")
+    print(f"Precision : {precision_score(y_test, preds):.2f}")
+    print(f"Recall    : {recall_score(y_test, preds):.2f}")
+    print(f"F1 Score  : {f1_score(y_test, preds):.2f}")
+    print(f"Confusion Matrix:\n{confusion_matrix(y_test, preds)}")
 
 if __name__ == "__main__":
-    
-    df = load_data()
-    X = df[["attendance", "internal_marks", "assignment_score"]]
-    y = df["result"]
-
-    saved = joblib.load(MODEL_PATH)
-    model = saved["model"]
-    encoder = saved["encoder"]
-
-    y_encoded = encoder.transform(y)
-
-    preds = model.predict(X)
-
-    acc = accuracy_score(y_encoded, preds)
-    cm = confusion_matrix(y_encoded, preds)
-
-    print(" Model Evaluation Results")
-    print("--------------------------")
-    print(f"Accuracy: {acc:.2f}")
-    print("Confusion Matrix:")
-    print(cm)
+    for model_name in ["logistic_regression", "random_forest", "svm"]:
+        evaluate_model(model_name)
