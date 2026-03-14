@@ -35,8 +35,16 @@ page = st.sidebar.radio("Go to", ["Dashboard", "Make Prediction"])
 data = load_data()
 
 if page == "Dashboard":
-    st.header("📊 Student Data Overview")
+    st.header("Student Data Overview")
     st.dataframe(data.head(10))
+
+    st.subheader("Model Comparison")
+    comparison = {
+        "Model": ["Logistic Regression", "Random Forest", "SVM"],
+        "Accuracy": ["80%", "93%", "93%"],
+        "Best For": ["Baseline", "Complex patterns", "Small datasets"]
+    }
+    st.table(pd.DataFrame(comparison))
 
     st.subheader("Pass/Fail Distribution")
     fig, ax = plt.subplots()
@@ -61,7 +69,7 @@ if page == "Dashboard":
     st.pyplot(fig3)
 
 elif page == "Make Prediction":
-    st.header("🔍 Make a Prediction")
+    st.header("Make a Prediction")
 
     model_choice = st.selectbox("Choose Model", list(MODELS.keys()))
 
