@@ -25,6 +25,12 @@ def validate_ranges(df):
     df = df[df["assignment_score"].between(0, 50)]
     return df
 
+def check_empty_data(df):
+    """Raise error if dataframe is empty after preprocessing."""
+    if df.empty:
+        raise ValueError("Dataset is empty after preprocessing.")
+    return df
+
 def encode_labels(df):
     """Encode the result column to numeric."""
     encoder = LabelEncoder()
@@ -44,6 +50,7 @@ def preprocess_pipeline(filepath="data/student_data.csv", test_size=0.2):
     df = handle_missing_values(df)
     df = remove_duplicates(df)
     df = validate_ranges(df)
+    df = check_empty_data(df)
     df, encoder = encode_labels(df)
 
     X = df[["attendance", "internal_marks", "assignment_score"]]
