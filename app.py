@@ -41,6 +41,11 @@ if page == "Dashboard":
     col2.metric("Pass Count", len(data[data["result"] == "Pass"]))
     col3.metric("Fail Count", len(data[data["result"] == "Fail"]))
     st.dataframe(data.head(10))
+    
+    st.subheader("Average Scores")
+    st.write(f"Average Attendance: **{data['attendance'].mean():.1f}%**")
+    st.write(f"Average Internal Marks: **{data['internal_marks'].mean():.1f}**")
+    st.write(f"Average Assignment Score: **{data['assignment_score'].mean():.1f}**")
 
     st.subheader("Model Comparison")
     comparison = {
