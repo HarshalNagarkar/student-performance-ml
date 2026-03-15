@@ -36,6 +36,10 @@ data = load_data()
 
 if page == "Dashboard":
     st.header("Student Data Overview")
+        col1, col2, col3 = st.columns(3)
+    col1.metric("Total Students", len(data))
+    col2.metric("Pass Count", len(data[data["result"] == "Pass"]))
+    col3.metric("Fail Count", len(data[data["result"] == "Fail"]))
     st.dataframe(data.head(10))
 
     st.subheader("Model Comparison")
