@@ -25,7 +25,7 @@ def load_model(model_name):
 
 st.set_page_config(page_title="Student Performance Prediction", layout="wide")
 
-st.title("🎓 Student Performance Prediction System")
+st.title("Student Performance Prediction System")
 st.markdown("Predict whether a student will **Pass or Fail** based on academic indicators.")
 
 # Sidebar
@@ -36,10 +36,11 @@ data = load_data()
 
 if page == "Dashboard":
     st.header("Student Data Overview")
-        col1, col2, col3 = st.columns(3)
+    col1, col2, col3 = st.columns(3)
     col1.metric("Total Students", len(data))
     col2.metric("Pass Count", len(data[data["result"] == "Pass"]))
     col3.metric("Fail Count", len(data[data["result"] == "Fail"]))
+    
     st.dataframe(data.head(10))
     
     st.subheader("Average Scores")
@@ -76,6 +77,12 @@ if page == "Dashboard":
         annot=True, cmap="coolwarm", ax=ax3
     )
     st.pyplot(fig3)
+
+    st.subheader("Marks Distribution by Result")
+    fig4, ax4 = plt.subplots()
+    data.boxplot(column="internal_marks", by="result", ax=ax4)
+    ax4.set_title("Internal Marks by Result")
+    st.pyplot(fig4)
 
 elif page == "Make Prediction":
     st.header("Make a Prediction")
