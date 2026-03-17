@@ -20,7 +20,7 @@ def create_table(conn):
     conn.commit()
 
 def insert_data(conn, df):
-    df.to_sql("students", conn, if_exists="append", index=False)
+    df.to_sql("students", conn, if_exists="replace", index=False)
 
 if __name__ == "__main__":
     conn = create_connection()
