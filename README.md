@@ -1,3 +1,8 @@
+![Python](https://img.shields.io/badge/Python-3.8+-blue)
+![ML](https://img.shields.io/badge/ML-Scikit--Learn-orange)
+![Dashboard](https://img.shields.io/badge/Dashboard-Streamlit-red)
+![Database](https://img.shields.io/badge/Database-SQLite-lightgrey)
+
 # Student Performance Prediction System
 
 A machine learning project that predicts whether a university student will **Pass or Fail** based on attendance, internal marks, and assignment scores.
