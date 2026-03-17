@@ -81,5 +81,4 @@ streamlit run app.py
 
 ---
 
-## Author
-Harshal Nagarkar
+
