@@ -96,7 +96,7 @@ if page == "Home":
     st.subheader("Model Performance Summary")
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.success("""
+        st.warning("""
         **Random Forest**
         
         Accuracy: **93%**
@@ -105,7 +105,7 @@ if page == "Home":
         complex non-linear patterns in data.
         """)
     with col2:
-        st.success("""
+        st.warning("""
         **Support Vector Machine**
         
         Accuracy: **93%**
